@@ -1,0 +1,107 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>csstool</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800|Space+Mono&amp;subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <aside>
+        <h1>CSSTOOL</h1>
+        <nav>
+            <ul>
+                <li>
+                    <a href="#" class="focused">OBJECT</a>
+                </li>
+                <li>
+                    <a href="#">SHADOW</a>
+                </li>
+                <li>
+                    <a href="#">COLOR</a>
+                </li>
+                <li>
+                    <a href="#">ANIMATION</a>
+                </li>
+                <li>
+                    <a href="#">GRID</a>
+                </li>
+                <li>
+                    <a href="#">LIBRARY</a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <main>
+        <section>
+            <h2>Object settings</h2>
+            <div id="width" class="field-group">
+                <label>Width:</label>
+                <input type="number" value="50">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="height" class="field-group">
+                <label>Height:</label>
+                <input type="number" value="50">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="placement" class="field-group checkbox">
+                <label>Outline:</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="borderWidth" class="field-group">
+                <label>Border width:</label>
+                <input type="number" value="4">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="borderStyle" class="field-group">
+                <label>Border style:</label>
+                <select>
+                    <option selected="selected" value="solid">solid</option>
+                    <option value="dashed">dashed</option>
+                    <option value="dotted">dotted</option>
+                </select>
+            </div>
+            <div id="topLeft" class="field-group corner">
+                <label>Top left:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="topRight" class="field-group corner">
+                <label>Top right:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="allCorners" class="field-group checkbox">
+                <label>All corners:</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="bottomLeft" class="field-group corner">
+                <label>Bottom left:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="bottomRight" class="field-group corner">
+                <label>Bottom right:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <a href="#">Continue</a>
+        </section>
+        <div id="preview"></div>
+        <div id="snippet">
+            <code></code>
+            <button>Copy</button>
+        </div>
+    </main>
+    <script defer src="main.js"></script>
+</body>
+
+</html>
