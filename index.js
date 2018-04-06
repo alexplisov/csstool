@@ -29,4 +29,4 @@ const handler = (req, res, err) => {
 
 const server = http.createServer()
     .on("request", handler)
-    .listen(5000);
+    .listen(process.env.PORT || 3000);
