@@ -7,6 +7,7 @@ body {
     font-weight: 800;
     font-size: 16px;
     color: #3f4247; 
+    height: 100vh;
 }
 
 aside {
@@ -17,7 +18,7 @@ aside {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, 336px);
+    grid-template-rows: 1fr 1fr; 
     grid-column: 2;
 }
 
