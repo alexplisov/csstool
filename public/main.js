@@ -41,12 +41,15 @@ const appendFigure = () => {
 const renderStyles = () => {
     let figures;
     figures = preview.querySelectorAll("div");
+
     figures.forEach(e => {
         e.style = generateBorders(width.value, height.value, topLeft.value, topRight.value, bottomLeft.value, bottomRight.value, borderWidth.value, borderStyle.value, placement.checked);
     });
+
 };
 
 const linkElementsValues = e => {
+
     switch (e.target.type) {
         case "number":
             e.target.parentElement.querySelector('input[type="range"]').value = +e.target.value;
@@ -66,6 +69,7 @@ const linkElementsValues = e => {
         bottomRight.value = +e.target.value;
         bottomRight.parentElement.querySelector('input[type="range"]').value = +e.target.value;
     }
+
 };
 
 const changeEvent = e => {
@@ -76,12 +80,15 @@ const changeEvent = e => {
 };
 
 const addListenersToFieldGroups = () => {
+    
     document.querySelectorAll(".field-group").forEach(e => {
         e.addEventListener("input", changeEvent);
     });
+
     document.querySelectorAll('.switch input[type="checkbox"]').forEach(e => {
         e.addEventListener("click", changeEvent);
-    })
+    });
+
 }
 
 const appendCode = () => {
@@ -89,6 +96,7 @@ const appendCode = () => {
 };
 
 const setupInputs = () => {
+
     document.querySelectorAll(".field-group").forEach(e => {
         let r = e.querySelector('input[type=range]');
         let n = e.querySelector('input[type="number"]');
@@ -96,27 +104,29 @@ const setupInputs = () => {
             r.value = n.value;
         }
     });
+
 };
 
 // syntax highlighting
 const highlight = () => {
     let data = code.innerHTML;
-    
     data = data.replace(/(\s)(.*?px)/g, ' <span class="px">$2</span>');
     data = data.replace(/(solid|dashed|dotted)/g, ' <span class="measure">$1</span>');
     data = data.replace(/(#.*)( |;)/g, ' <span class="cl">$1</span>$2');
-
     code.innerHTML = data;
 }
 
 // main
 addListenersToFieldGroups();
+
 copy.addEventListener("click", () => {
+    window.getSelection().removeAllRanges();
     let range = document.createRange();
     range.selectNode(snippet.querySelector("code"));
     window.getSelection().addRange(range);
     document.execCommand("Copy");
 });
+
 appendFigure();
 setupInputs();
 highlight();
