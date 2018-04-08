@@ -202,23 +202,29 @@ const showSection = () => {
 
     document.querySelectorAll("main > section").forEach(e => {
         e.style.display = "none";
+        document.querySelectorAll("aside nav ul li a").forEach(e => e.className = "");
     });
 
     switch (window.location.hash) {
         case "#object":
             objectSection.style.display = "grid";
+            document.querySelector("#object").className = "focused";
             break;
         case "#shadow":
             shadowSection.style.display = "grid";
+            document.querySelector("#shadow").className = "focused";
             break;
         case "#color":
             colorSection.style.display = "grid";
+            document.querySelector("#color").className = "focused";
             break;
         case "#animation":
             animationSection.style.display = "grid";
+            document.querySelector("#animation").className = "focused";
             break;
         default:
             objectSection.style.display = "grid";
+            document.querySelector("#object").className = "focused";
             break;
     }
 };
