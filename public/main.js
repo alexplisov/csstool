@@ -192,9 +192,9 @@ const setupInputs = () => {
 // syntax highlighting
 const highlight = () => {
     let data = code.innerHTML;
-    data = data.replace(/(\s)(.*?px)/g, ' <span class="px">$2</span>');
+    data = data.replace(/(\s)(.{0,3}?px)/g, ' <span class="px">$2</span>');
     data = data.replace(/(solid|dashed|dotted)/g, ' <span class="measure">$1</span>');
-    data = data.replace(/(#.*)( |;)/g, ' <span class="cl">$1</span>$2');
+    data = data.replace(/(#.{6,8})(;)/g, ' <span class="cl">$1</span>$2');
     code.innerHTML = data;
 };
 
