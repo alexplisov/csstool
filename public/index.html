@@ -21,28 +21,22 @@
         <nav>
             <ul>
                 <li>
-                    <a href="#" class="focused">OBJECT</a>
+                    <a href="#object" class="focused">OBJECT</a>
                 </li>
                 <li>
-                    <a href="#">SHADOW</a>
+                    <a href="#shadow">SHADOW</a>
                 </li>
                 <li>
-                    <a href="#">COLOR</a>
+                    <a href="#color">COLOR</a>
                 </li>
                 <li>
-                    <a href="#">ANIMATION</a>
-                </li>
-                <li>
-                    <a href="#">GRID</a>
-                </li>
-                <li>
-                    <a href="#">LIBRARY</a>
+                    <a href="#animation">ANIMATION</a>
                 </li>
             </ul>
         </nav>
     </aside>
     <main>
-        <section>
+        <section id="object-settings">
             <h2>Object settings</h2>
             <div id="width" class="field-group">
                 <label>Width:</label>
@@ -101,7 +95,72 @@
                 <input type="number" value="0">
                 <input type="range" min="0" max="100">
             </div>
-            <a href="#">Continue</a>
+            <a href="#shadow">Continue</a>
+        </section>
+        <section id="shadow-settings" style="display: none;">
+            <h2>Shadow settings</h2>
+            <div id="shadowOn" class="field-group checkbox">
+                <label>Enable shadow:</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="inset" class="field-group checkbox">
+                <label>Inset:</label>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div id="xShift" class="field-group">
+                <label>Shift x-axis:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="yShift" class="field-group">
+                <label>Shift y-axis:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="blurShadow" class="field-group">
+                <label>Blur:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="stretchShadow" class="field-group">
+                <label>Stretch:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="100">
+            </div>
+            <div id="redShadow" class="field-group">
+                <label>Red:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="255">
+            </div>
+            <div id="greenShadow" class="field-group">
+                <label>Blue:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="255">
+            </div>
+            <div id="blueShadow" class="field-group">
+                <label>Green:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" max="255">
+            </div>
+            <div id="alphaShadow" class="field-group">
+                <label>Alpha:</label>
+                <input type="number" value="0">
+                <input type="range" min="0" step="0.01" max="1">
+            </div>
+            <a href="#color">Continue</a>
+        </section>
+        <section id="color-settings" style="display: none;">
+            <h2>Color settings</h2>
+            <a href="#animation">Continue</a>
+        </section>
+        <section id="animation-settings" style="display: none;">
+            <h2>Animation settings</h2>
         </section>
         <div id="preview"></div>
         <div id="snippet">

@@ -1,7 +1,7 @@
 "use strict";
 
 // Globals
-let id, preview, width, height, topLeft, topRight, bottomLeft, bottomRight, allCorners, borderWidth, borderStyle, snippet, copy, placement, code;
+let id, preview, width, height, topLeft, topRight, bottomLeft, bottomRight, allCorners, borderWidth, borderStyle, snippet, copy, placement, code, objectSection, shadowSection, colorSection, animationSection, shadowOn, inset, xshift, yshift, blur, stretch, redShadow, greenShadow, blueShadow, alphaShadow;
 
 id = 0;
 preview = document.querySelector("#preview");
@@ -18,9 +18,24 @@ snippet = document.querySelector("#snippet");
 copy = document.querySelector("#snippet button");
 placement = document.querySelector('#placement input[type="checkbox"]');
 code = document.querySelector("code");
+objectSection = document.querySelector("#object-settings");
+shadowSection = document.querySelector("#shadow-settings");
+colorSection = document.querySelector("#color-settings");
+animationSection = document.querySelector("#animation-settings");
+
+shadowOn = document.querySelector('#shadowOn input[type="checkbox"]');
+inset = document.querySelector('#inset input[type="checkbox"]');
+xshift = document.querySelector('#xShift input[type="number"]');
+yshift = document.querySelector('#yShift input[type="number"]');
+blur = document.querySelector('#blurShadow input[type="number"]');
+stretch = document.querySelector('#stretchShadow input[type="number"]');
+redShadow = document.querySelector('#redShadow input[type="number"]');
+greenShadow = document.querySelector('#greenShadow input[type="number"]');
+blueShadow = document.querySelector('#blueShadow input[type="number"]');
+alphaShadow = document.querySelector('#alphaShadow input[type="number"]');
 
 // Borders generator
-const generateBorders = (w, h, tl, tr, bl, br, bw, s, o) => shape(w, h) + radius(tl, tr, bl, br) + style(bw, s, o);
+const generateBorders = (w, h, tl, tr, bl, br, bw, s, o, on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => shape(w, h) + radius(tl, tr, bl, br) + style(bw, s, o) + shadow(on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha);
 
 const shape = (w, h) => `width: ${w}px;\nheight: ${h}px;\n`;
 
@@ -28,26 +43,70 @@ const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${bl}px ${br}
 
 const style = (bw, s, o) => `${o ? "outline" : "border"}: ${bw}px ${s} #000000;\n`;
 
+const shadow = (on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => on ? "box-shadow: " + (inset ? "inset" : "") + `${xshift}px ${yshift}px ${blur}px ${stretch}px rgba(${red}, ${green}, ${blue}, ${alpha});\n` : "";
+
 // DOM interaction
 const appendFigure = () => {
     let figure;
     figure = document.createElement("div");
     figure.id = id++;
-    figure.style = generateBorders(width.value, height.value, topLeft.value, topRight.value, bottomLeft.value, bottomRight.value, borderWidth.value, borderStyle.value, placement.checked);
+    figure.style = generateBorders(
+        width.value,
+        height.value,
+        topLeft.value,
+        topRight.value,
+        bottomLeft.value,
+        bottomRight.value,
+        borderWidth.value,
+        borderStyle.value,
+        placement.checked,
+        shadowOn.checked,
+        inset.checked,
+        xshift.value,
+        yshift.value,
+        blur.value,
+        stretch.value,
+        redShadow.value,
+        greenShadow.value,
+        blueShadow.value,
+        alphaShadow.value
+    );
     appendCode();
     preview.appendChild(figure);
 };
 
+// Applies styles to preview element
 const renderStyles = () => {
     let figures;
     figures = preview.querySelectorAll("div");
 
     figures.forEach(e => {
-        e.style = generateBorders(width.value, height.value, topLeft.value, topRight.value, bottomLeft.value, bottomRight.value, borderWidth.value, borderStyle.value, placement.checked);
+        e.style = generateBorders(
+            width.value,
+            height.value,
+            topLeft.value,
+            topRight.value,
+            bottomLeft.value,
+            bottomRight.value,
+            borderWidth.value,
+            borderStyle.value,
+            placement.checked,
+            shadowOn.checked,
+            inset.checked,
+            xshift.value,
+            yshift.value,
+            blur.value,
+            stretch.value,
+            redShadow.value,
+            greenShadow.value,
+            blueShadow.value,
+            alphaShadow.value
+        );
     });
 
 };
 
+// Links range and number values
 const linkElementsValues = e => {
 
     switch (e.target.type) {
@@ -72,6 +131,7 @@ const linkElementsValues = e => {
 
 };
 
+// Wrapper to call all needed functions on value change
 const changeEvent = e => {
     linkElementsValues(e);
     renderStyles();
@@ -80,7 +140,7 @@ const changeEvent = e => {
 };
 
 const addListenersToFieldGroups = () => {
-    
+
     document.querySelectorAll(".field-group").forEach(e => {
         e.addEventListener("input", changeEvent);
     });
@@ -89,12 +149,34 @@ const addListenersToFieldGroups = () => {
         e.addEventListener("click", changeEvent);
     });
 
-}
-
-const appendCode = () => {
-    snippet.querySelector("code").innerHTML = generateBorders(width.value, height.value, topLeft.value, topRight.value, bottomLeft.value, bottomRight.value, borderWidth.value, borderStyle.value, placement.checked).replace(/\n/g, "<br>");
 };
 
+// Appends calculated code into code element
+const appendCode = () => {
+    snippet.querySelector("code").innerHTML = generateBorders(
+        width.value,
+        height.value,
+        topLeft.value,
+        topRight.value,
+        bottomLeft.value,
+        bottomRight.value,
+        borderWidth.value,
+        borderStyle.value,
+        placement.checked,
+        shadowOn.checked,
+        inset.checked,
+        xshift.value,
+        yshift.value,
+        blur.value,
+        stretch.value,
+        redShadow.value,
+        greenShadow.value,
+        blueShadow.value,
+        alphaShadow.value
+    ).replace(/\n/g, "<br>");
+};
+
+// Initializes values for inputs
 const setupInputs = () => {
 
     document.querySelectorAll(".field-group").forEach(e => {
@@ -114,7 +196,32 @@ const highlight = () => {
     data = data.replace(/(solid|dashed|dotted)/g, ' <span class="measure">$1</span>');
     data = data.replace(/(#.*)( |;)/g, ' <span class="cl">$1</span>$2');
     code.innerHTML = data;
-}
+};
+
+const showSection = () => {
+
+    document.querySelectorAll("main > section").forEach(e => {
+        e.style.display = "none";
+    });
+
+    switch (window.location.hash) {
+        case "#object":
+            objectSection.style.display = "grid";
+            break;
+        case "#shadow":
+            shadowSection.style.display = "grid";
+            break;
+        case "#color":
+            colorSection.style.display = "grid";
+            break;
+        case "#animation":
+            animationSection.style.display = "grid";
+            break;
+        default:
+            objectSection.style.display = "grid";
+            break;
+    }
+};
 
 // main
 addListenersToFieldGroups();
@@ -130,3 +237,5 @@ copy.addEventListener("click", () => {
 appendFigure();
 setupInputs();
 highlight();
+window.onload = showSection;
+window.onhashchange = showSection;
