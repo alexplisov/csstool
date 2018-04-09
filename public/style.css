@@ -237,6 +237,7 @@ main section a, .checkbox {
 }
 
 section a {
+    font-size: 30px;
     padding: 60px 0; 
     color: #6fdf84;
     text-decoration: none;

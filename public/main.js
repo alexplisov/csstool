@@ -41,9 +41,14 @@ const shape = (w, h) => `width: ${w}px;\nheight: ${h}px;\n`;
 
 const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${bl}px ${br}px;\n`;
 
-const style = (bw, s, o) => `${o ? "outline" : "border"}: ${bw}px ${s} #000000;\n`;
+const style = (bw, s, o) => `${o ? "outline" : "border"}: ${bw}px ${s};\n`;
 
-const shadow = (on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => on ? "box-shadow: " + (inset ? "inset" : "") + `${xshift}px ${yshift}px ${blur}px ${stretch}px rgba(${red}, ${green}, ${blue}, ${alpha});\n` : "";
+const shadow = (on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => on ? "box-shadow: " + (inset ? "inset " : "") + `${xshift}px ${yshift}px ${blur}px ${stretch}px #${dth(red)}${dth(green)}${dth(blue)}${dth(alpha)};\n` : "";
+
+const dth = str => { 
+    let n = parseInt(str, 10).toString(16);
+    return n.length > 1 ? n : "0" + n;
+};
 
 // DOM interaction
 const appendFigure = () => {
@@ -193,7 +198,7 @@ const setupInputs = () => {
 const highlight = () => {
     let data = code.innerHTML;
     data = data.replace(/(\s)(.{0,3}?px)/g, ' <span class="px">$2</span>');
-    data = data.replace(/(solid|dashed|dotted)/g, ' <span class="measure">$1</span>');
+    data = data.replace(/(solid|dashed|dotted|inset)/g, ' <span class="measure">$1</span>');
     data = data.replace(/(#.{6,8})(;)/g, ' <span class="cl">$1</span>$2');
     code.innerHTML = data;
 };
