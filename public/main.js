@@ -48,7 +48,7 @@ const generateBorders = (w, h, tl, tr, bl, br, bw, s, o, on, inset, xshift, yshi
 
 const shape = (w, h) => `width: ${w}px;\nheight: ${h}px;\n`;
 
-const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${bl}px ${br}px;\n`;
+const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${br}px ${bl}px;\n`;
 
 const style = (bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) => `${o ? "outline" : "border"}: ${bw}px ${s}${colorOn? ` #${dth(redBorder)}${dth(greenBorder)}${dth(blueBorder)}${dth(alphaBorder)}` : ""};\n`;
 
