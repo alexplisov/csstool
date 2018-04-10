@@ -247,10 +247,8 @@ section a:focus {
     color: #608de0;
 }
 
-#preview *{
+#previewDiv {
     background: #6fdf84;
-    border-color: #608de0 !important;
-    outline-color: #608de0 !important;
 }
 
 #snippet {

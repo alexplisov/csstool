@@ -1,9 +1,8 @@
 "use strict";
 
 // Globals
-let id, preview, width, height, topLeft, topRight, bottomLeft, bottomRight, allCorners, borderWidth, borderStyle, snippet, copy, placement, code, objectSection, shadowSection, colorSection, animationSection, shadowOn, inset, xshift, yshift, blur, stretch, redShadow, greenShadow, blueShadow, alphaShadow;
+let preview, width, height, topLeft, topRight, bottomLeft, bottomRight, allCorners, borderWidth, borderStyle, snippet, copy, placement, code, objectSection, shadowSection, colorSection, animationSection, shadowOn, inset, xshift, yshift, blur, stretch, redShadow, greenShadow, blueShadow, alphaShadow, colorOn, redBackground, greenBackground, blueBackground, alphaBackground, redBorder, greenBorder, blueBorder, alphaBorder;
 
-id = 0;
 preview = document.querySelector("#preview");
 width = document.querySelector('#width input[type="number"]');
 height = document.querySelector('#height input[type="number"]');
@@ -34,16 +33,28 @@ greenShadow = document.querySelector('#greenShadow input[type="number"]');
 blueShadow = document.querySelector('#blueShadow input[type="number"]');
 alphaShadow = document.querySelector('#alphaShadow input[type="number"]');
 
+colorOn =  document.querySelector('#colorOn input[type="checkbox"]');
+redBackground = document.querySelector('#redBackground input[type="number"]');
+greenBackground =  document.querySelector('#greenBackground input[type="number"]');
+blueBackground = document.querySelector('#blueBackground input[type="number"]');
+alphaBackground = document.querySelector('#alphaBackground input[type="number"]');
+redBorder =  document.querySelector('#redBorder input[type="number"]');
+greenBorder = document.querySelector('#greenBorder input[type="number"]');
+blueBorder =  document.querySelector('#blueBorder input[type="number"]');
+alphaBorder =  document.querySelector('#alphaBorder input[type="number"]');
+
 // Borders generator
-const generateBorders = (w, h, tl, tr, bl, br, bw, s, o, on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => shape(w, h) + radius(tl, tr, bl, br) + style(bw, s, o) + shadow(on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha);
+const generateBorders = (w, h, tl, tr, bl, br, bw, s, o, on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha, colorOn, redBackground, greenBackground, blueBackground, alphaBackground, redBorder, greenBorder, blueBorder, alphaBorder) => shape(w, h) + radius(tl, tr, bl, br) + style(bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) + shadow(on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) + color(colorOn, redBackground, greenBackground, blueBackground, alphaBackground);
 
 const shape = (w, h) => `width: ${w}px;\nheight: ${h}px;\n`;
 
 const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${bl}px ${br}px;\n`;
 
-const style = (bw, s, o) => `${o ? "outline" : "border"}: ${bw}px ${s};\n`;
+const style = (bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) => `${o ? "outline" : "border"}: ${bw}px ${s}${colorOn? ` #${dth(redBorder)}${dth(greenBorder)}${dth(blueBorder)}${dth(alphaBorder)}` : ""};\n`;
 
 const shadow = (on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => on ? "box-shadow: " + (inset ? "inset " : "") + `${xshift}px ${yshift}px ${blur}px ${stretch}px #${dth(red)}${dth(green)}${dth(blue)}${dth(alpha)};\n` : "";
+
+const color = (colorOn, redBackground, greenBackground, blueBackground, alphaBackground) => colorOn ? `background-color: #${dth(redBackground)}${dth(greenBackground)}${dth(blueBackground)}${dth(alphaBackground)};\n` : "";
 
 const dth = str => { 
     let n = parseInt(str, 10).toString(16);
@@ -54,7 +65,7 @@ const dth = str => {
 const appendFigure = () => {
     let figure;
     figure = document.createElement("div");
-    figure.id = id++;
+    figure.id = "previewDiv";
     figure.style = generateBorders(
         width.value,
         height.value,
@@ -74,8 +85,18 @@ const appendFigure = () => {
         redShadow.value,
         greenShadow.value,
         blueShadow.value,
-        alphaShadow.value
-    );
+        alphaShadow.value,
+        colorOn.checked,
+        redBackground.value,
+        greenBackground.value,
+        blueBackground.value,
+        alphaBackground.value,
+        redBorder.value,
+        greenBorder.value,
+        blueBorder.value,
+        alphaBorder.value
+
+    ) + (colorOn.checked ? "" : " border-color: #608de0;\noutline-color: #608de0;");
     appendCode();
     preview.appendChild(figure);
 };
@@ -105,8 +126,17 @@ const renderStyles = () => {
             redShadow.value,
             greenShadow.value,
             blueShadow.value,
-            alphaShadow.value
-        );
+            alphaShadow.value,
+            colorOn.checked,
+            redBackground.value,
+            greenBackground.value,
+            blueBackground.value,
+            alphaBackground.value,
+            redBorder.value,
+            greenBorder.value,
+            blueBorder.value,
+            alphaBorder.value
+        )  + (colorOn.checked ? "" : " border-color: #608de0;\noutline-color: #608de0;");
     });
 
 };
@@ -177,7 +207,16 @@ const appendCode = () => {
         redShadow.value,
         greenShadow.value,
         blueShadow.value,
-        alphaShadow.value
+        alphaShadow.value,
+        colorOn.checked,
+        redBackground.value,
+        greenBackground.value,
+        blueBackground.value,
+        alphaBackground.value,
+        redBorder.value,
+        greenBorder.value,
+        blueBorder.value,
+        alphaBorder.value
     ).replace(/\n/g, "<br>");
 };
 
