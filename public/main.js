@@ -20,7 +20,6 @@ code = document.querySelector("code");
 objectSection = document.querySelector("#object-settings");
 shadowSection = document.querySelector("#shadow-settings");
 colorSection = document.querySelector("#color-settings");
-animationSection = document.querySelector("#animation-settings");
 
 shadowOn = document.querySelector('#shadowOn input[type="checkbox"]');
 inset = document.querySelector('#inset input[type="checkbox"]');
@@ -33,15 +32,15 @@ greenShadow = document.querySelector('#greenShadow input[type="number"]');
 blueShadow = document.querySelector('#blueShadow input[type="number"]');
 alphaShadow = document.querySelector('#alphaShadow input[type="number"]');
 
-colorOn =  document.querySelector('#colorOn input[type="checkbox"]');
+colorOn = document.querySelector('#colorOn input[type="checkbox"]');
 redBackground = document.querySelector('#redBackground input[type="number"]');
-greenBackground =  document.querySelector('#greenBackground input[type="number"]');
+greenBackground = document.querySelector('#greenBackground input[type="number"]');
 blueBackground = document.querySelector('#blueBackground input[type="number"]');
 alphaBackground = document.querySelector('#alphaBackground input[type="number"]');
-redBorder =  document.querySelector('#redBorder input[type="number"]');
+redBorder = document.querySelector('#redBorder input[type="number"]');
 greenBorder = document.querySelector('#greenBorder input[type="number"]');
-blueBorder =  document.querySelector('#blueBorder input[type="number"]');
-alphaBorder =  document.querySelector('#alphaBorder input[type="number"]');
+blueBorder = document.querySelector('#blueBorder input[type="number"]');
+alphaBorder = document.querySelector('#alphaBorder input[type="number"]');
 
 // Borders generator
 const generateBorders = (w, h, tl, tr, bl, br, bw, s, o, on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha, colorOn, redBackground, greenBackground, blueBackground, alphaBackground, redBorder, greenBorder, blueBorder, alphaBorder) => shape(w, h) + radius(tl, tr, bl, br) + style(bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) + shadow(on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) + color(colorOn, redBackground, greenBackground, blueBackground, alphaBackground);
@@ -50,13 +49,13 @@ const shape = (w, h) => `width: ${w}px;\nheight: ${h}px;\n`;
 
 const radius = (tl, tr, bl, br) => `border-radius: ${tl}px ${tr}px ${br}px ${bl}px;\n`;
 
-const style = (bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) => `${o ? "outline" : "border"}: ${bw}px ${s}${colorOn? ` #${dth(redBorder)}${dth(greenBorder)}${dth(blueBorder)}${dth(alphaBorder)}` : ""};\n`;
+const style = (bw, s, o, colorOn, redBorder, greenBorder, blueBorder, alphaBorder) => `${o ? "outline" : "border"}: ${bw}px ${s}${colorOn ? ` #${dth(redBorder)}${dth(greenBorder)}${dth(blueBorder)}${dth(alphaBorder)}` : ""};\n`;
 
 const shadow = (on, inset, xshift, yshift, blur, stretch, red, green, blue, alpha) => on ? "box-shadow: " + (inset ? "inset " : "") + `${xshift}px ${yshift}px ${blur}px ${stretch}px #${dth(red)}${dth(green)}${dth(blue)}${dth(alpha)};\n` : "";
 
 const color = (colorOn, redBackground, greenBackground, blueBackground, alphaBackground) => colorOn ? `background-color: #${dth(redBackground)}${dth(greenBackground)}${dth(blueBackground)}${dth(alphaBackground)};\n` : "";
 
-const dth = str => { 
+const dth = str => {
     let n = parseInt(str, 10).toString(16);
     return n.length > 1 ? n : "0" + n;
 };
@@ -136,7 +135,7 @@ const renderStyles = () => {
             greenBorder.value,
             blueBorder.value,
             alphaBorder.value
-        )  + (colorOn.checked ? "" : " border-color: #608de0;\noutline-color: #608de0;");
+        ) + (colorOn.checked ? "" : " border-color: #608de0;\noutline-color: #608de0;");
     });
 
 };
@@ -261,10 +260,6 @@ const showSection = () => {
         case "#color":
             colorSection.style.display = "grid";
             document.querySelector("#color").className = "focused";
-            break;
-        case "#animation":
-            animationSection.style.display = "grid";
-            document.querySelector("#animation").className = "focused";
             break;
         default:
             objectSection.style.display = "grid";
